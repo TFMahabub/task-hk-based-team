@@ -1,0 +1,80 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%; */
+}
+
+body {
+  background-color: #edf2f6;
+}
+
+
+@layer base {
+  h1 {
+    @apply text-2xl;
+  }
+  h2 {
+    @apply text-xl;
+  }
+  /* ... */
+}
+
+@layer components {
+  .container {
+    @apply max-w-[1488px] mx-auto px-[1rem] md:px-[2rem] lg:px-[4rem];
+  }
+  .headerHeight {
+    @apply h-[calc(100vh-4rem)];
+  }
+  
+  .scroll-none::-webkit-scrollbar {
+    display: none;
+  }
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+  .flex-item {
+    @apply flex items-center;
+  }
+  .flex-justify {
+    @apply flex justify-center;
+  }
+  .box-area {
+    @apply p-4 border border-gray/40 bg-white rounded-lg;
+  }
+  .Heading-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  
+    display: -moz-box;
+    -moz-box-orient: vertical;
+  
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* spesific-tag-class */
+  
+}
+
+
+@layer utilities {
+  .content-auto {
+    content-visibility: auto;
+  }
+}
