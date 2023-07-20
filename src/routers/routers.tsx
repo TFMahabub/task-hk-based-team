@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import MainLayouts from '../layouts/MainLayout';
 import HomePage from '../pages/home/HomePage';
+import UserCreate from '../pages/userCreate/UserCreate';
 
 const router = createBrowserRouter([
   {
@@ -13,7 +14,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/user-create',
-        element: <HomePage />,
+        element: <UserCreate />,
       },
       {
         path: '/user-edit',
