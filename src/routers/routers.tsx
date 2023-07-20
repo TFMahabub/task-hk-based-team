@@ -8,7 +8,19 @@ const router = createBrowserRouter([
     element: <MainLayouts />,
     children: [
       {
-        path: '/home',
+        path: '/',
+        element: <HomePage />,
+      },
+      {
+        path: '/user-create',
+        element: <HomePage />,
+      },
+      {
+        path: '/user-edit',
+        element: <HomePage />,
+      },
+      {
+        path: '/user-delete',
         element: <HomePage />,
       },
     ],

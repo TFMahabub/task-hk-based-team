@@ -1,8 +1,6 @@
 function HomePage() {
   return (
-    <div>
-      <h1>homepage</h1>
-    </div>
+    <section className="h-full w-full flex items-center justify-center" />
   );
 }
 

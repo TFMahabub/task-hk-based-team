@@ -13,6 +13,7 @@ export const navbarSlice = createSlice({
   initialState,
   reducers: {
     setHamburgerMenu: (state:{ hamburgerMenu:boolean }) => {
+      // eslint-disable-next-line no-param-reassign
       state.hamburgerMenu = !state.hamburgerMenu;
     },
   },
