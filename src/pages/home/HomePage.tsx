@@ -1,8 +1,9 @@
 function HomePage() {
   return (
-    <div>
-      <h1>homepage</h1>
-    </div>
+    <section className="h-full w-full flex flex-col items-center justify-center text-center">
+      <p className="text-lg font-medium text-textColor">Wellcome to</p>
+      <h1 className="text-4xl font-bold text-primary">React App</h1>
+    </section>
   );
 }
 

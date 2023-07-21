@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import MainLayouts from '../layouts/MainLayout';
 import HomePage from '../pages/home/HomePage';
+import UserCreate from '../pages/userCreate/UserCreate';
 
 const router = createBrowserRouter([
   {
@@ -8,7 +9,19 @@ const router = createBrowserRouter([
     element: <MainLayouts />,
     children: [
       {
-        path: '/home',
+        path: '/',
+        element: <HomePage />,
+      },
+      {
+        path: '/user-create',
+        element: <UserCreate />,
+      },
+      {
+        path: '/user-edit',
+        element: <HomePage />,
+      },
+      {
+        path: '/user-delete',
         element: <HomePage />,
       },
     ],
