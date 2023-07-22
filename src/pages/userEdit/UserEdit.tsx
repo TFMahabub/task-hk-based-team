@@ -1,14 +1,12 @@
-/* eslint-disable max-lines */
-// eslint-disable-next-line import/no-named-as-default
 import PrimaryInputField from '../../components/shared/inputField/PrimaryInputField';
 import ButtonPrimary from '../../components/utils/ReUse/ButtonPrimary';
 import TextPageHeader from '../../components/utils/ReUse/TextPageHeader';
 
-function UserCreate() {
+function UserEdit() {
   return (
     <section>
       <form action="" className="mt-sectionGap p-8 space-y-6">
-        <TextPageHeader>Add User Info</TextPageHeader>
+        <TextPageHeader>Edit User Info</TextPageHeader>
         <div className="flex items-center gap-6 ">
           {/* -----------First-Name----------- */}
           <div className="w-full">
@@ -67,11 +65,11 @@ function UserCreate() {
           {/* -----------City----------- */}
           <div className="w-full">
             <PrimaryInputField
-              htmlForm="city"
-              type="text"
-              id="city"
-              placeholder="city"
-              labelName="City"
+              htmlForm="Email"
+              type="email"
+              id="Email"
+              placeholder="Email"
+              labelName="Email"
             />
           </div>
           {/* -----------State / Province----------- */}
@@ -80,11 +78,12 @@ function UserCreate() {
               htmlForm="state"
               type="text"
               id="state"
+              // eslint-disable-next-line max-lines
+              value="ami"
               placeholder="State / Province"
               labelName="State / Province"
             />
           </div>
-          {/* -----------State / Province----------- */}
           <div className="w-full">
             <PrimaryInputField
               htmlForm="zip"
@@ -116,4 +115,4 @@ function UserCreate() {
   );
 }
 
-export default UserCreate;
+export default UserEdit;

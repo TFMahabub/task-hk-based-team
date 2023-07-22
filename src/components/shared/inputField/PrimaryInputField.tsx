@@ -4,10 +4,11 @@ interface PropsType {
   id:string;
   placeholder:string;
   labelName:string;
+  value?: any;
 }
 
 function PrimaryInputField({
-  htmlForm, type, id, placeholder, labelName,
+  htmlForm, type, id, placeholder, labelName, ...attributes
 }:PropsType) {
   return (
     <label
@@ -17,8 +18,9 @@ function PrimaryInputField({
       <input
         type={type}
         id={id}
+        {...attributes}
         placeholder={placeholder}
-        className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm bg-lightGray"
+        className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm bg-lightGray placeholder-opacity-0"
       />
 
       <span
