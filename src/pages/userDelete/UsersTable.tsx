@@ -81,7 +81,8 @@ function UsersTable() {
                 <div
                   className="flex gap-2 items-center"
                 >
-                  <span
+                  <button
+                    type="button"
                     onClick={() => dispatch(removeUserInfo(user.id))}
                     className="flex items-center gap-1 text-md px-2 rounded-md py-[6px] text-error bg-error/10 cursor-pointer hover:bg-error/20"
                   >
@@ -90,7 +91,7 @@ function UsersTable() {
                     />
                     {' '}
                     Delete
-                  </span>
+                  </button>
                   <Link
                     to={`/user-edit/${user?.id}`}
                     className="flex items-center gap-1 text-md px-2 rounded-md py-[6px] text-primary bg-primary/10 cursor-pointer hover:bg-primary/20"
