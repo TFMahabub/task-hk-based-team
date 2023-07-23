@@ -1,24 +1,27 @@
 /* eslint-disable max-lines */
-import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { useAppSelector } from '../../app/hook';
+import toast from 'react-hot-toast';
+import { useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { RootState } from '../../app/store';
 import { UserInfo } from '../../components/globalTypes/userType';
 import SvgSpinners180RingWithBg from '../../components/utils/ReUse/SpinnerLoading';
 import TextPageHeader from '../../components/utils/ReUse/TextPageHeader';
+import { removeUserInfo, setUserInfo } from '../../feauters/UserForm/userFormSlice';
 import FindUserById from '../../hooks/FindUserById';
 
 function UserEdit() {
   // redux
   const { userDatas } = useAppSelector((state: RootState) => state.userInfo);
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
-  // const { id } = useParams();
-  const idToNumber = 2;
-  const targetedUser = FindUserById(idToNumber, userDatas);
+  const { id } = useParams();
+  const targetedUser = FindUserById(id, userDatas);
 
   // states--------------------------------------
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // allValidation react-hook-form----------------------
   const {
@@ -26,19 +29,19 @@ function UserEdit() {
   } = useForm<UserInfo>();
 
   // onSubmitFunction--------------------------------
-  // const onSubmit: SubmitHandler<UserInfo> = (data) => {
-  // setLoading(true);
-  // setTimeout(() => {
-  //   // dispatch(editUserInfo(data.id));
-  //   setLoading(false);
-  //   toast.success('User Info Update Successfully.');
-  // }, 1000);
-  // console.log(data);
-  // };
+  const onSubmit: SubmitHandler<UserInfo> = (data) => {
+    setLoading(true);
+    setTimeout(() => {
+      dispatch(removeUserInfo(data.id));
+      dispatch(setUserInfo(data));
+      setLoading(false);
+      toast.success('User Info Update Successfully.');
+    }, 1000);
+  };
 
   if (!targetedUser) { <SvgSpinners180RingWithBg />; }
   return (
-    <form action="" className="mt-sectionGap p-8 space-y-6">
+    <form action="" onSubmit={handleSubmit(onSubmit)} className="mt-sectionGap p-8 space-y-6">
       <TextPageHeader>Edit User Info</TextPageHeader>
       <div className="flex items-center gap-6 ">
         {/* -----------First-Name----------- */}
@@ -167,9 +170,8 @@ function UserEdit() {
         </label>
       </div>
       <button type="submit" className="primarySubmitButton bg-primary w-24">
-        {/* { loading && <SvgSpinners180RingWithBg className="fill-gray/40 w-[22px] h-[22px]" />}
-        { !loading && 'Submit'} */}
-        Submit
+        { loading && <SvgSpinners180RingWithBg className="fill-gray/40 w-[22px] h-[22px]" />}
+        { !loading && 'Submit'}
       </button>
     </form>
   );
