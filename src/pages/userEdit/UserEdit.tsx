@@ -9,7 +9,6 @@ import { RootState } from '../../app/store';
 import { UserInfo } from '../../components/globalTypes/userType';
 import SvgSpinners180RingWithBg from '../../components/utils/ReUse/SpinnerLoading';
 import TextPageHeader from '../../components/utils/ReUse/TextPageHeader';
-import { editUserInfo } from '../../feauters/UserForm/userFormSlice';
 import FindUserById from '../../hooks/FindUserById';
 
 function UserEdit() {
@@ -18,7 +17,8 @@ function UserEdit() {
   const dispatch = useAppDispatch();
 
   const { id } = useParams();
-  const targetedUser = FindUserById(parseInt(id), userDatas);
+  const idToNumber = parseInt(id);
+  const targetedUser = FindUserById(idToNumber, userDatas);
 
   // states--------------------------------------
   const [loading, setLoading] = useState(false);
@@ -32,11 +32,10 @@ function UserEdit() {
   const onSubmit: SubmitHandler<UserInfo> = (data) => {
     setLoading(true);
     setTimeout(() => {
-      dispatch(editUserInfo(data.id));
+      // dispatch(editUserInfo(data.id));
       setLoading(false);
       toast.success('User Info Update Successfully.');
     }, 1000);
-    console.log(data);
   };
 
   if (!targetedUser) { <SvgSpinners180RingWithBg />; }
