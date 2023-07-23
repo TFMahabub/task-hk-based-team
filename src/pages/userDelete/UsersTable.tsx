@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 /* eslint-disable max-lines */
 import { RiDeleteBinLine, RiEditBoxLine } from 'react-icons/ri';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { RootState } from '../../app/store';
 import TextPageHeader from '../../components/utils/ReUse/TextPageHeader';
@@ -13,7 +13,7 @@ function UsersTable() {
   const { userDatas } = useAppSelector((state: RootState) => state.userInfo);
   const dispatch = useAppDispatch();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   return (
     <section className="mt-sectionGap p-8 space-y-6">
       <TextPageHeader>Delete User Info</TextPageHeader>
