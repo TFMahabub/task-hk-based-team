@@ -9,12 +9,12 @@ function MainLayouts() {
         <Navbar />
       </nav>
       <section className="pt-14 h-screen grid grid-cols-10">
-        <aside className="col-span-2 bg-white">
+        <aside className="col-span-2 bg-white overflow-y-auto">
           <ul className="list-none mt-10">
             <AsideAllMenus />
           </ul>
         </aside>
-        <main className="col-span-8 ">
+        <main className="col-span-8 overflow-y-auto">
           <Outlet />
         </main>
       </section>

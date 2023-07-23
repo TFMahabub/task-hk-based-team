@@ -2,6 +2,8 @@ import { createBrowserRouter } from 'react-router-dom';
 import MainLayouts from '../layouts/MainLayout';
 import HomePage from '../pages/home/HomePage';
 import UserCreate from '../pages/userCreate/UserCreate';
+import UsersTable from '../pages/userDelete/UsersTable';
+import UserEdit from '../pages/userEdit/UserEdit';
 
 const router = createBrowserRouter([
   {
@@ -17,12 +19,12 @@ const router = createBrowserRouter([
         element: <UserCreate />,
       },
       {
-        path: '/user-edit',
-        element: <HomePage />,
+        path: '/user-edit/:id',
+        element: <UserEdit />,
       },
       {
-        path: '/user-delete',
-        element: <HomePage />,
+        path: '/users-table',
+        element: <UsersTable />,
       },
     ],
 

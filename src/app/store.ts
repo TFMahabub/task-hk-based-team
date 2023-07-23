@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
+import userFormReducer from '../feauters/UserForm/userFormSlice';
 import navbarSliceReducer from '../feauters/navbar/navbarSlice';
 
 export const store = configureStore({
   reducer: {
     navbar: navbarSliceReducer,
+    userInfo: userFormReducer,
   },
 });
 

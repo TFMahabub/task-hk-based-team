@@ -56,6 +56,17 @@ body {
   .box-area {
     @apply p-4 border border-gray/40 bg-white rounded-lg;
   }
+
+  /* input-field */
+  .defaultInputStyle {
+    @apply py-2 px-4 outline-none ring-0 border rounded-md;
+  }
+  .defaultInputLableStyle {
+    @apply w-full flex flex-col gap-1 text-sm text-textColor;
+  }
+  .primarySubmitButton {
+    @apply h-10 flex items-center justify-center text-white tracking-wide hover:bg-opacity-90 duration-common cursor-pointer rounded-md;
+  }
   .Heading-clamp {
     display: -webkit-box;
     -webkit-line-clamp: 1;

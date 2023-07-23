@@ -3,17 +3,22 @@ import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import toast from 'react-hot-toast';
+import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { RootState } from '../../app/store';
 import { UserInfo } from '../../components/globalTypes/userType';
 import SvgSpinners180RingWithBg from '../../components/utils/ReUse/SpinnerLoading';
 import TextPageHeader from '../../components/utils/ReUse/TextPageHeader';
-import { setUserInfo } from '../../feauters/UserForm/userFormSlice';
+import { editUserInfo } from '../../feauters/UserForm/userFormSlice';
+import FindUserById from '../../hooks/FindUserById';
 
-function UserCreate() {
+function UserEdit() {
   // redux
   const { userDatas } = useAppSelector((state: RootState) => state.userInfo);
   const dispatch = useAppDispatch();
+
+  const { id } = useParams();
+  const targetedUser = FindUserById(parseInt(id), userDatas);
 
   // states--------------------------------------
   const [loading, setLoading] = useState(false);
@@ -27,23 +32,24 @@ function UserCreate() {
   const onSubmit: SubmitHandler<UserInfo> = (data) => {
     setLoading(true);
     setTimeout(() => {
-      dispatch(setUserInfo(
-        { ...data, id: userDatas.length + 1 },
-      ));
+      dispatch(editUserInfo(data.id));
       setLoading(false);
-      toast.success('User Added Successfully.');
+      toast.success('User Info Update Successfully.');
     }, 1000);
+    console.log(data);
   };
 
+  if (!targetedUser) { <SvgSpinners180RingWithBg />; }
   return (
     <form action="" onSubmit={handleSubmit(onSubmit)} className="mt-sectionGap p-8 space-y-6">
-      <TextPageHeader>Add User Info</TextPageHeader>
+      <TextPageHeader>Edit User Info</TextPageHeader>
       <div className="flex items-center gap-6 ">
         {/* -----------First-Name----------- */}
         <label htmlFor="firstName" className="defaultInputLableStyle">
           First Name:
           <input
             id="firstName"
+            defaultValue={targetedUser?.firstName}
             {...register('firstName', { required: true, maxLength: 20 })}
             placeholder="First Name"
             className={`defaultInputStyle ${errors.firstName ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
@@ -58,6 +64,7 @@ function UserCreate() {
           Last Name:
           <input
             id="lastName"
+            defaultValue={targetedUser?.lastName}
             {...register('lastName', { required: true, maxLength: 20 })}
             placeholder="Last Name"
             className={`defaultInputStyle ${errors.lastName ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
@@ -74,6 +81,7 @@ function UserCreate() {
           Email:
           <input
             id="email"
+            defaultValue={targetedUser?.email}
             {...register('email', { required: true, maxLength: 25 })}
             placeholder="Email"
             className={`defaultInputStyle ${errors.email ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
@@ -88,6 +96,7 @@ function UserCreate() {
           Phone Number:
           <input
             id="phoneNumber"
+            defaultValue={targetedUser?.phoneNumber}
             {...register('phoneNumber', { required: true, maxLength: 14 })}
             placeholder="Phone Number"
             className={`defaultInputStyle ${errors.phoneNumber ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
@@ -103,6 +112,7 @@ function UserCreate() {
         Address:
         <input
           id="address"
+          defaultValue={targetedUser?.address}
           {...register('address', { required: true, maxLength: 60 })}
           placeholder="Address"
           className={`defaultInputStyle ${errors.address ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
@@ -118,6 +128,7 @@ function UserCreate() {
           City:
           <input
             id="city"
+            defaultValue={targetedUser?.city}
             {...register('city', { required: true, maxLength: 20 })}
             placeholder="City"
             className={`defaultInputStyle ${errors.city ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
@@ -132,6 +143,7 @@ function UserCreate() {
           State:
           <input
             id="state"
+            defaultValue={targetedUser?.state}
             {...register('state', { required: true, maxLength: 20 })}
             placeholder="State"
             className={`defaultInputStyle ${errors.state ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
@@ -146,6 +158,7 @@ function UserCreate() {
           Postal Code:
           <input
             id="postalCode"
+            defaultValue={targetedUser?.postalCode}
             {...register('postalCode', { required: true, maxLength: 20 })}
             placeholder="Postal Code"
             className={`defaultInputStyle ${errors.postalCode ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
@@ -156,18 +169,12 @@ function UserCreate() {
           }
         </label>
       </div>
-      <div className="flex items-center gap-common">
-        <button type="submit" className="primarySubmitButton bg-primary w-24">
-          { loading && <SvgSpinners180RingWithBg className="fill-gray/40 w-[22px] h-[22px]" />}
-          { !loading && 'Submit'}
-        </button>
-        {/* eslint-disable-next-line react/button-has-type */}
-        <button type="reset" className="primarySubmitButton bg-error w-24">
-          Reset
-        </button>
-      </div>
+      <button type="submit" className="primarySubmitButton bg-primary w-24">
+        { loading && <SvgSpinners180RingWithBg className="fill-gray/40 w-[22px] h-[22px]" />}
+        { !loading && 'Submit'}
+      </button>
     </form>
   );
 }
 
-export default UserCreate;
+export default UserEdit;
