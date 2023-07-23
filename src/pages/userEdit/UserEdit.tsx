@@ -1,10 +1,7 @@
 /* eslint-disable max-lines */
-import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import toast from 'react-hot-toast';
-import { useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../app/hook';
+import { useAppSelector } from '../../app/hook';
 import { RootState } from '../../app/store';
 import { UserInfo } from '../../components/globalTypes/userType';
 import SvgSpinners180RingWithBg from '../../components/utils/ReUse/SpinnerLoading';
@@ -14,14 +11,14 @@ import FindUserById from '../../hooks/FindUserById';
 function UserEdit() {
   // redux
   const { userDatas } = useAppSelector((state: RootState) => state.userInfo);
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
-  const { id } = useParams();
-  const idToNumber = parseInt(id);
+  // const { id } = useParams();
+  const idToNumber = 2;
   const targetedUser = FindUserById(idToNumber, userDatas);
 
   // states--------------------------------------
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
 
   // allValidation react-hook-form----------------------
   const {
@@ -30,12 +27,13 @@ function UserEdit() {
 
   // onSubmitFunction--------------------------------
   const onSubmit: SubmitHandler<UserInfo> = (data) => {
-    setLoading(true);
-    setTimeout(() => {
-      // dispatch(editUserInfo(data.id));
-      setLoading(false);
-      toast.success('User Info Update Successfully.');
-    }, 1000);
+    // setLoading(true);
+    // setTimeout(() => {
+    //   // dispatch(editUserInfo(data.id));
+    //   setLoading(false);
+    //   toast.success('User Info Update Successfully.');
+    // }, 1000);
+    console.log(data);
   };
 
   if (!targetedUser) { <SvgSpinners180RingWithBg />; }
@@ -169,8 +167,9 @@ function UserEdit() {
         </label>
       </div>
       <button type="submit" className="primarySubmitButton bg-primary w-24">
-        { loading && <SvgSpinners180RingWithBg className="fill-gray/40 w-[22px] h-[22px]" />}
-        { !loading && 'Submit'}
+        {/* { loading && <SvgSpinners180RingWithBg className="fill-gray/40 w-[22px] h-[22px]" />}
+        { !loading && 'Submit'} */}
+        Submit
       </button>
     </form>
   );
