@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 /* eslint-disable max-lines */
 import { RiDeleteBinLine, RiEditBoxLine } from 'react-icons/ri';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { RootState } from '../../app/store';
 import TextPageHeader from '../../components/utils/ReUse/TextPageHeader';
@@ -21,8 +21,8 @@ function UsersTable() {
         <thead>
           <TableHeader />
         </thead>
-        <tbody className="w-full">
-          {userDatas.map((user) => (
+        <tbody className="w-screen overflow-x-auto">
+          {userDatas?.map((user) => (
             <tr
               key={user.id}
               id="tr"
@@ -36,22 +36,46 @@ function UsersTable() {
               <td className="pl-4">
                 <div className="flex gap-2 items-center">
                   {/* <ChromeIcon /> */}
-                  <span className=" text-sm font-normal">
-                    {`${user.firstName} ${' '} ${user.lastName}`}
+                  <span
+                    title={`${user.firstName} ${' '} ${user.lastName}`}
+                    className=" text-sm font-normal"
+                  >
+                    {
+                    `${user.firstName} ${' '} ${user.lastName}`.length > 15 ? `${`${user.firstName} ${' '} ${user.lastName}`.slice(0, 15)}...` : `${user.firstName} ${' '} ${user.lastName}`
+                    }
                   </span>
                 </div>
               </td>
               <td className="pl-4">
                 <div className="flex gap-2 items-center">
                   {/* <ChromeIcon /> */}
-                  <span className=" text-sm font-normal">{user.email}</span>
+                  <span
+                    title={user.email}
+                    className=" text-sm font-normal"
+                  >
+                    {
+                    user.email.length > 23 ? `${`${user.email.slice(0, 23)}...`}` : user.email
+                    }
+                  </span>
                 </div>
               </td>
               <td className="pl-12 text-sm font-normal">
-                <span className=" text-sm font-normal">{user.phoneNumber}</span>
+                <span
+                  title={user.phoneNumber}
+                  className=" text-sm font-normal"
+                >
+                  {
+                  user.phoneNumber.length > 13 ? `${user.phoneNumber.slice(0, 13)}...` : user.phoneNumber
+                  }
+                </span>
               </td>
               <td className="pl-12 text-sm font-normal">
-                <span className=" text-sm font-normal">{user.address}</span>
+                <span
+                  title={user.address}
+                  className=" text-sm font-normal"
+                >
+                  {user.address.length > 15 ? `${user.address.slice(0, 15)}...` : user.address}
+                </span>
               </td>
               <td className="pl-20 text-sm font-normal">
                 <div
@@ -67,8 +91,8 @@ function UsersTable() {
                     {' '}
                     Delete
                   </span>
-                  <span
-                    onClick={() => navigate(`/user-edit/${user.id}`)}
+                  <Link
+                    to={`/user-edit/${user?.id}`}
                     className="flex items-center gap-1 text-md px-2 rounded-md py-[6px] text-primary bg-primary/10 cursor-pointer hover:bg-primary/20"
                   >
                     <RiEditBoxLine
@@ -76,7 +100,7 @@ function UsersTable() {
                     />
                     {' '}
                     Edit
-                  </span>
+                  </Link>
                 </div>
               </td>
             </tr>

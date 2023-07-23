@@ -43,9 +43,15 @@ export const userFormSlice = createSlice({
       // eslint-disable-next-line no-param-reassign
       state.userDatas = state.userDatas.filter((data) => data.id !== action.payload);
     },
+    editUserInfo: (state, action: PayloadAction<UserInfo>) => {
+      // eslint-disable-next-line no-param-reassign
+      state.userDatas = state.userDatas.filter((user:UserInfo) => user.id !== action.payload?.id);
+      // eslint-disable-next-line no-param-reassign
+      state.userDatas = [...state.userDatas, action.payload];
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setUserInfo, removeUserInfo } = userFormSlice.actions;
+export const { setUserInfo, removeUserInfo, editUserInfo } = userFormSlice.actions;
 export default userFormSlice.reducer;
