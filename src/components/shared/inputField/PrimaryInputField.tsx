@@ -1,25 +1,17 @@
 interface PropsType {
-  htmlForm:string;
-  type:string;
-  id:string;
-  placeholder:string;
-  labelName:string;
-  value?: any;
+  htmlFor: string
+  labelName: string
 }
 
-function PrimaryInputField({
-  htmlForm, type, id, placeholder, labelName, ...attributes
-}:PropsType) {
+function PrimaryInputField({ htmlFor, labelName, ...attributes }:PropsType) {
   return (
     <label
-      htmlFor={htmlForm}
+      htmlFor={htmlFor}
       className="relative block overflow-hidden rounded-md border border-gray/20 px-3 pt-3 shadow-sm focus-within:border-gray/80 focus-within:ring-0"
     >
       <input
-        type={type}
-        id={id}
+        // eslint-disable-next-line react/jsx-props-no-spreading
         {...attributes}
-        placeholder={placeholder}
         className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm bg-lightGray placeholder-opacity-0"
       />
 

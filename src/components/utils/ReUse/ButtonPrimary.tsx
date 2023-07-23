@@ -2,7 +2,7 @@ interface PropsType {
   color: 'bg-primary' | 'bg-error' | 'bg-secondary' | undefined;
   children: React.ReactNode;
   buttonType: 'button' | 'submit' | 'reset' | undefined
-  onClick: () => void
+  onClick?: () => void
 }
 
 function ButtonPrimary({

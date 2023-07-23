@@ -1,5 +1,7 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { RiDeleteBinLine } from 'react-icons/ri';
 import TextPageHeader from '../../components/utils/ReUse/TextPageHeader';
+import TableHeader from './TableHeader';
 
 function UserDelete() {
   return (
@@ -7,32 +9,12 @@ function UserDelete() {
       <TextPageHeader>Delete User Info</TextPageHeader>
       <table className="w-full whitespace-nowrap text-gray">
         <thead>
-          <tr className="h-16 w-full text-lg tracking-wide sticky top-0 bg-lightGray">
-            <th className="text-start bg-gray-5 text-textColor font-semibold text-sm pl-4">
-              {/* Browser */}
-              Select
-            </th>
-            <th className="text-start bg-gray-5 text-textColor font-semibold text-sm pl-4">
-              {/* serial */}
-              Name
-            </th>
-            <th className="text-start bg-gray-5 text-textColor font-semibold text-sm pl-4">
-              {/* serial */}
-              Email
-            </th>
-            <th className="text-start bg-gray-5 text-textColor font-semibold text-sm pl-12">
-              {/* Location */}
-              Phone Number
-            </th>
-            <th className="text-start bg-gray-5 text-textColor font-semibold text-sm pl-20">
-              {/* Last Activity */}
-              Address
-            </th>
-          </tr>
+          <TableHeader />
         </thead>
         <tbody className="w-full">
           {[...Array(15)].map((_, i) => (
             <tr
+              // eslint-disable-next-line react/no-array-index-key
               key={i}
               id="tr"
               className="h-14 text-xs text-textColor bg-white hover:bg-gray/10 hover:bg-gray-100 border-b border-gray/50 last-of-type:border-b-none"
@@ -59,6 +41,9 @@ function UserDelete() {
               </td>
               <td className="pl-12 text-sm font-normal">
                 <span className=" text-sm font-normal">01636725669</span>
+              </td>
+              <td className="pl-12 text-sm font-normal">
+                <span className=" text-sm font-normal">Nawabgonj, Dhaka</span>
               </td>
               <td className="pl-20 text-sm font-normal">
                 <div
