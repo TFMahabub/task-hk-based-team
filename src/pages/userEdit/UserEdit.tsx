@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { useAppSelector } from '../../app/hook';
 import { RootState } from '../../app/store';
@@ -26,19 +26,19 @@ function UserEdit() {
   } = useForm<UserInfo>();
 
   // onSubmitFunction--------------------------------
-  const onSubmit: SubmitHandler<UserInfo> = (data) => {
-    // setLoading(true);
-    // setTimeout(() => {
-    //   // dispatch(editUserInfo(data.id));
-    //   setLoading(false);
-    //   toast.success('User Info Update Successfully.');
-    // }, 1000);
-    console.log(data);
-  };
+  // const onSubmit: SubmitHandler<UserInfo> = (data) => {
+  // setLoading(true);
+  // setTimeout(() => {
+  //   // dispatch(editUserInfo(data.id));
+  //   setLoading(false);
+  //   toast.success('User Info Update Successfully.');
+  // }, 1000);
+  // console.log(data);
+  // };
 
   if (!targetedUser) { <SvgSpinners180RingWithBg />; }
   return (
-    <form action="" onSubmit={handleSubmit(onSubmit)} className="mt-sectionGap p-8 space-y-6">
+    <form action="" className="mt-sectionGap p-8 space-y-6">
       <TextPageHeader>Edit User Info</TextPageHeader>
       <div className="flex items-center gap-6 ">
         {/* -----------First-Name----------- */}
