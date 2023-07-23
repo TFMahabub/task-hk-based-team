@@ -47,5 +47,5 @@ export const userFormSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setUserInfo } = userFormSlice.actions;
+export const { setUserInfo, removeUserInfo } = userFormSlice.actions;
 export default userFormSlice.reducer;

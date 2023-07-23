@@ -1,117 +1,186 @@
-import PrimaryInputField from '../../components/shared/inputField/PrimaryInputField';
-import ButtonPrimary from '../../components/utils/ReUse/ButtonPrimary';
+/* eslint-disable max-lines */
+import { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import toast from 'react-hot-toast';
+import { useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../app/hook';
+import { RootState } from '../../app/store';
+import { UserInfo } from '../../components/globalTypes/userType';
+import SvgSpinners180RingWithBg from '../../components/utils/ReUse/SpinnerLoading';
 import TextPageHeader from '../../components/utils/ReUse/TextPageHeader';
+import { setUserInfo } from '../../feauters/UserForm/userFormSlice';
+import FindUserById from '../../hooks/FindUserById';
 
 function UserEdit() {
+  // redux
+  const { userDatas } = useAppSelector((state: RootState) => state.userInfo);
+  const dispatch = useAppDispatch();
+
+  const { id } = useParams();
+  const targetedUser = FindUserById(parseInt(id), userDatas);
+
+  // states--------------------------------------
+  const [loading, setLoading] = useState(false);
+
+  // allValidation react-hook-form----------------------
+  const {
+    register, handleSubmit, formState: { errors },
+  } = useForm<UserInfo>();
+
+  // onSubmitFunction--------------------------------
+  const onSubmit: SubmitHandler<UserInfo> = (data) => {
+    setLoading(true);
+    setTimeout(() => {
+      dispatch(setUserInfo(
+        { ...data, id: userDatas.length + 1 },
+      ));
+      setLoading(false);
+      toast.success('User Added Successfully.');
+    }, 1000);
+  };
+
+  if (!targetedUser) { <SvgSpinners180RingWithBg />; }
   return (
-    <section>
-      <form action="" className="mt-sectionGap p-8 space-y-6">
-        <TextPageHeader>Edit User Info</TextPageHeader>
-        <div className="flex items-center gap-6 ">
-          {/* -----------First-Name----------- */}
-          <div className="w-full">
-            <PrimaryInputField
-              htmlForm="First Name"
-              type="text"
-              id="First-Name"
-              placeholder="Fist Name"
-              labelName="First Name"
-            />
-          </div>
-          {/* -----------Last-Name----------- */}
-          <div className="w-full">
-            <PrimaryInputField
-              htmlForm="Last Name"
-              type="text"
-              id="Last-Name"
-              placeholder="Last Name"
-              labelName="Last Name"
-            />
-          </div>
-        </div>
-        <div className="flex items-center gap-6 ">
-          {/* -----------Email----------- */}
-          <div className="w-full">
-            <PrimaryInputField
-              htmlForm="Email"
-              type="email"
-              id="Email"
-              placeholder="Email"
-              labelName="Email"
-            />
-          </div>
-          {/* -----------Phone-number----------- */}
-          <div className="w-full">
-            <PrimaryInputField
-              htmlForm="Phone-Number"
-              type="number"
-              id="Phone Number"
-              placeholder="Phone Number"
-              labelName="Phone Number"
-            />
-          </div>
-        </div>
-        {/* -----------Address----------- */}
-        <div className="w-full">
-          <PrimaryInputField
-            htmlForm="Address"
-            type="text"
-            id="Address"
-            placeholder="Address"
-            labelName="Address"
+    <form action="" onSubmit={handleSubmit(onSubmit)} className="mt-sectionGap p-8 space-y-6">
+      <TextPageHeader>Edit User Info</TextPageHeader>
+      <div className="flex items-center gap-6 ">
+        {/* -----------First-Name----------- */}
+        <label htmlFor="firstName" className="defaultInputLableStyle">
+          First Name:
+          <input
+            id="firstName"
+            value={targetedUser?.firstName}
+            {...register('firstName', { required: true, maxLength: 20 })}
+            placeholder="First Name"
+            className={`defaultInputStyle ${errors.firstName ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
           />
-        </div>
-        <div className="flex items-center gap-6 ">
-          {/* -----------City----------- */}
-          <div className="w-full">
-            <PrimaryInputField
-              htmlForm="Email"
-              type="email"
-              id="Email"
-              placeholder="Email"
-              labelName="Email"
-            />
-          </div>
-          {/* -----------State / Province----------- */}
-          <div className="w-full">
-            <PrimaryInputField
-              htmlForm="state"
-              type="text"
-              id="state"
-              // eslint-disable-next-line max-lines
-              value="ami"
-              placeholder="State / Province"
-              labelName="State / Province"
-            />
-          </div>
-          <div className="w-full">
-            <PrimaryInputField
-              htmlForm="zip"
-              type="text"
-              id="zip"
-              placeholder="ZIP / Postal"
-              labelName="ZIP / Postal"
-            />
-          </div>
-        </div>
-        <div className="flex items-center gap-6">
-          <ButtonPrimary
-            buttonType="submit"
-            color="bg-primary"
-            onClick={() => alert('ami aci')}
-          >
-            Submit
-          </ButtonPrimary>
-          <ButtonPrimary
-            buttonType="submit"
-            color="bg-error"
-            onClick={() => alert('ami aci')}
-          >
-            Reset
-          </ButtonPrimary>
-        </div>
-      </form>
-    </section>
+          {
+            errors.firstName
+          && <small className="text-error">This field is required</small>
+          }
+        </label>
+        {/* -----------First-Name----------- */}
+        <label htmlFor="lastName" className="defaultInputLableStyle">
+          Last Name:
+          <input
+            id="lastName"
+            value={targetedUser?.lastName}
+            {...register('lastName', { required: true, maxLength: 20 })}
+            placeholder="Last Name"
+            className={`defaultInputStyle ${errors.lastName ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
+          />
+          {
+            errors.lastName
+          && <small className="text-error">This field is required</small>
+          }
+        </label>
+      </div>
+      <div className="flex items-center gap-6 ">
+        {/* -----------Email----------- */}
+        <label htmlFor="email" className="defaultInputLableStyle">
+          Email:
+          <input
+            id="email"
+            value={targetedUser?.email}
+            {...register('email', { required: true, maxLength: 25 })}
+            placeholder="Email"
+            className={`defaultInputStyle ${errors.email ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
+          />
+          {
+            errors.email
+          && <small className="text-error">This field is required</small>
+          }
+        </label>
+        {/* -----------Phone-number----------- */}
+        <label htmlFor="phoneNumber" className="defaultInputLableStyle">
+          Phone Number:
+          <input
+            id="phoneNumber"
+            value={targetedUser?.phoneNumber}
+            {...register('phoneNumber', { required: true, maxLength: 14 })}
+            placeholder="Phone Number"
+            className={`defaultInputStyle ${errors.phoneNumber ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
+          />
+          {
+            errors.phoneNumber
+          && <small className="text-error">This field is required</small>
+          }
+        </label>
+      </div>
+      {/* -----------Address----------- */}
+      <label htmlFor="address" className="defaultInputLableStyle">
+        Address:
+        <input
+          id="address"
+          value={targetedUser?.address}
+          {...register('address', { required: true, maxLength: 60 })}
+          placeholder="Address"
+          className={`defaultInputStyle ${errors.address ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
+        />
+        {
+            errors.address
+          && <small className="text-error">This field is required</small>
+          }
+      </label>
+      <div className="flex items-center gap-6 ">
+        {/* -----------City----------- */}
+        <label htmlFor="city" className="defaultInputLableStyle">
+          City:
+          <input
+            id="city"
+            value={targetedUser?.city}
+            {...register('city', { required: true, maxLength: 20 })}
+            placeholder="City"
+            className={`defaultInputStyle ${errors.city ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
+          />
+          {
+            errors.city
+          && <small className="text-error">This field is required</small>
+          }
+        </label>
+        {/* -----------State / Province----------- */}
+        <label htmlFor="state" className="defaultInputLableStyle">
+          State:
+          <input
+            id="state"
+            value={targetedUser?.state}
+            {...register('state', { required: true, maxLength: 20 })}
+            placeholder="State"
+            className={`defaultInputStyle ${errors.state ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
+          />
+          {
+            errors.state
+          && <small className="text-error">This field is required</small>
+          }
+        </label>
+        {/* -----------State / Province----------- */}
+        <label htmlFor="postalCode" className="defaultInputLableStyle">
+          Postal Code:
+          <input
+            id="postalCode"
+            value={targetedUser?.postalCode}
+            {...register('postalCode', { required: true, maxLength: 20 })}
+            placeholder="Postal Code"
+            className={`defaultInputStyle ${errors.postalCode ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
+          />
+          {
+            errors.postalCode
+          && <small className="text-error">This field is required</small>
+          }
+        </label>
+      </div>
+      <div className="flex items-center gap-common">
+        <button type="submit" className="primarySubmitButton bg-primary w-24">
+          { loading && <SvgSpinners180RingWithBg className="fill-gray/40 w-[22px] h-[22px]" />}
+          { !loading && 'Submit'}
+        </button>
+        {/* eslint-disable-next-line react/button-has-type */}
+        <button type="reset" className="primarySubmitButton bg-error w-24">
+          Reset
+        </button>
+      </div>
+    </form>
   );
 }
 

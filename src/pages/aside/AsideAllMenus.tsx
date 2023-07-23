@@ -12,16 +12,9 @@ function AsideAllMenus() {
       </li>
       <li className="">
         <SingleNavLink
-          toLink="/user-edit"
+          toLink="/users-table"
         >
-          User Edit
-        </SingleNavLink>
-      </li>
-      <li className="">
-        <SingleNavLink
-          toLink="/user-delete"
-        >
-          User Delete
+          All Users
         </SingleNavLink>
       </li>
     </>
