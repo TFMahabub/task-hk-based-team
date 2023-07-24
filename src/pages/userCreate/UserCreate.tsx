@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { RootState } from '../../app/store';
 import { UserInfo } from '../../components/globalTypes/userType';
@@ -14,12 +15,14 @@ function UserCreate() {
   // redux
   const { userDatas } = useAppSelector((state: RootState) => state.userInfo);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   // states--------------------------------------
   const [loading, setLoading] = useState(false);
 
   // allValidation react-hook-form----------------------
   const {
-    register, handleSubmit, formState: { errors },
+    register, handleSubmit, formState: { errors }, reset,
   } = useForm<UserInfo>();
 
   // onSubmitFunction--------------------------------
@@ -30,6 +33,8 @@ function UserCreate() {
         { ...data, id: userDatas.length + 1 },
       ));
       setLoading(false);
+      reset();
+      navigate('/users-table');
       toast.success('User Added Successfully.');
     }, 1000);
   };

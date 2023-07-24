@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import toast from 'react-hot-toast';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { RootState } from '../../app/store';
 import { UserInfo } from '../../components/globalTypes/userType';
@@ -21,13 +21,14 @@ function UserEdit() {
 
   const id:number = parseFloat(userID!);
   const targetedUser = FindUserById(id, userDatas);
+  const navigate = useNavigate();
 
   // states--------------------------------------
   const [loading, setLoading] = useState(false);
 
   // allValidation react-hook-form----------------------
   const {
-    register, handleSubmit, formState: { errors },
+    register, handleSubmit, formState: { errors }, reset,
   } = useForm<UserInfo>();
 
   // onSubmitFunction--------------------------------
@@ -36,6 +37,8 @@ function UserEdit() {
     setTimeout(() => {
       dispatch(editUserInfo({ ...data, id }));
       setLoading(false);
+      reset();
+      navigate('/users-table');
       toast.success('User Info Update Successfully.');
     }, 1000);
   };
