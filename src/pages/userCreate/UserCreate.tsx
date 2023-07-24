@@ -14,7 +14,6 @@ function UserCreate() {
   // redux
   const { userDatas } = useAppSelector((state: RootState) => state.userInfo);
   const dispatch = useAppDispatch();
-
   // states--------------------------------------
   const [loading, setLoading] = useState(false);
 
