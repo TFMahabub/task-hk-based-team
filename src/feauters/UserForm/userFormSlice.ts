@@ -44,10 +44,10 @@ export const userFormSlice = createSlice({
       state.userDatas = state.userDatas.filter((data) => data.id !== action.payload);
     },
     editUserInfo: (state, action: PayloadAction<UserInfo>) => {
-      // eslint-disable-next-line no-param-reassign
-      state.userDatas = state.userDatas.filter((user:UserInfo) => user.id !== action.payload?.id);
-      // eslint-disable-next-line no-param-reassign
-      state.userDatas = [...state.userDatas, action.payload];
+      const userID:number = parseFloat(action.payload.id);
+      const findIndexOfObject = state.userDatas.findIndex((data) => data.id === userID);
+
+      state.userDatas[findIndexOfObject] = action.payload;
     },
   },
 });

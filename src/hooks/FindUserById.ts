@@ -1,7 +1,7 @@
 import { UserInfo } from '../components/globalTypes/userType';
 
-const FindUserById = (id:number | undefined | string, userDatas:UserInfo[]) => {
-  const findedUser = userDatas.find((user: UserInfo) => user.id === id);
+const FindUserById = (id:number, userDatas:UserInfo[]) => {
+  const findedUser = userDatas?.find((user: UserInfo) => user.id === id);
   return findedUser;
 };
 

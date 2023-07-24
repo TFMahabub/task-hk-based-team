@@ -9,7 +9,7 @@ import { RootState } from '../../app/store';
 import { UserInfo } from '../../components/globalTypes/userType';
 import SvgSpinners180RingWithBg from '../../components/utils/ReUse/SpinnerLoading';
 import TextPageHeader from '../../components/utils/ReUse/TextPageHeader';
-import { removeUserInfo, setUserInfo } from '../../feauters/UserForm/userFormSlice';
+import { editUserInfo } from '../../feauters/UserForm/userFormSlice';
 import FindUserById from '../../hooks/FindUserById';
 
 function UserEdit() {
@@ -18,7 +18,7 @@ function UserEdit() {
   const dispatch = useAppDispatch();
 
   const { id } = useParams();
-  const targetedUser = FindUserById(id, userDatas);
+  const targetedUser = FindUserById(parseFloat(id!), userDatas);
 
   // states--------------------------------------
   const [loading, setLoading] = useState(false);
@@ -32,14 +32,12 @@ function UserEdit() {
   const onSubmit: SubmitHandler<UserInfo> = (data) => {
     setLoading(true);
     setTimeout(() => {
-      dispatch(removeUserInfo(data.id));
-      dispatch(setUserInfo(data));
+      dispatch(editUserInfo({ ...data, id }));
       setLoading(false);
       toast.success('User Info Update Successfully.');
     }, 1000);
   };
 
-  if (!targetedUser) { <SvgSpinners180RingWithBg />; }
   return (
     <form action="" onSubmit={handleSubmit(onSubmit)} className="mt-sectionGap p-8 space-y-6">
       <TextPageHeader>Edit User Info</TextPageHeader>
@@ -52,10 +50,10 @@ function UserEdit() {
             defaultValue={targetedUser?.firstName}
             {...register('firstName', { required: true, maxLength: 20 })}
             placeholder="First Name"
-            className={`defaultInputStyle ${errors.firstName ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
+            className={`defaultInputStyle ${errors?.firstName ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
           />
           {
-            errors.firstName
+            errors?.firstName
           && <small className="text-error">This field is required</small>
           }
         </label>
@@ -67,10 +65,10 @@ function UserEdit() {
             defaultValue={targetedUser?.lastName}
             {...register('lastName', { required: true, maxLength: 20 })}
             placeholder="Last Name"
-            className={`defaultInputStyle ${errors.lastName ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
+            className={`defaultInputStyle ${errors?.lastName ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
           />
           {
-            errors.lastName
+            errors?.lastName
           && <small className="text-error">This field is required</small>
           }
         </label>
@@ -84,10 +82,10 @@ function UserEdit() {
             defaultValue={targetedUser?.email}
             {...register('email', { required: true, maxLength: 25 })}
             placeholder="Email"
-            className={`defaultInputStyle ${errors.email ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
+            className={`defaultInputStyle ${errors?.email ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
           />
           {
-            errors.email
+            errors?.email
           && <small className="text-error">This field is required</small>
           }
         </label>
@@ -99,10 +97,10 @@ function UserEdit() {
             defaultValue={targetedUser?.phoneNumber}
             {...register('phoneNumber', { required: true, maxLength: 14 })}
             placeholder="Phone Number"
-            className={`defaultInputStyle ${errors.phoneNumber ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
+            className={`defaultInputStyle ${errors?.phoneNumber ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
           />
           {
-            errors.phoneNumber
+            errors?.phoneNumber
           && <small className="text-error">This field is required</small>
           }
         </label>
@@ -115,10 +113,10 @@ function UserEdit() {
           defaultValue={targetedUser?.address}
           {...register('address', { required: true, maxLength: 60 })}
           placeholder="Address"
-          className={`defaultInputStyle ${errors.address ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
+          className={`defaultInputStyle ${errors?.address ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
         />
         {
-            errors.address
+            errors?.address
           && <small className="text-error">This field is required</small>
           }
       </label>
@@ -131,10 +129,10 @@ function UserEdit() {
             defaultValue={targetedUser?.city}
             {...register('city', { required: true, maxLength: 20 })}
             placeholder="City"
-            className={`defaultInputStyle ${errors.city ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
+            className={`defaultInputStyle ${errors?.city ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
           />
           {
-            errors.city
+            errors?.city
           && <small className="text-error">This field is required</small>
           }
         </label>
@@ -146,10 +144,10 @@ function UserEdit() {
             defaultValue={targetedUser?.state}
             {...register('state', { required: true, maxLength: 20 })}
             placeholder="State"
-            className={`defaultInputStyle ${errors.state ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
+            className={`defaultInputStyle ${errors?.state ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
           />
           {
-            errors.state
+            errors?.state
           && <small className="text-error">This field is required</small>
           }
         </label>
@@ -161,10 +159,10 @@ function UserEdit() {
             defaultValue={targetedUser?.postalCode}
             {...register('postalCode', { required: true, maxLength: 20 })}
             placeholder="Postal Code"
-            className={`defaultInputStyle ${errors.postalCode ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
+            className={`defaultInputStyle ${errors?.postalCode ? 'border-error focus:border-error' : 'border-gray/30 focus:border-primary'}`}
           />
           {
-            errors.postalCode
+            errors?.postalCode
           && <small className="text-error">This field is required</small>
           }
         </label>
