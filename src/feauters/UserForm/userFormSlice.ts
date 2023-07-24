@@ -44,9 +44,9 @@ export const userFormSlice = createSlice({
       state.userDatas = state.userDatas.filter((data) => data.id !== action.payload);
     },
     editUserInfo: (state, action: PayloadAction<UserInfo>) => {
-      const userID:number = parseFloat(action.payload.id);
-      const findIndexOfObject = state.userDatas.findIndex((data) => data.id === userID);
+      const findIndexOfObject = state.userDatas.findIndex((data) => data.id === action.payload.id);
 
+      // eslint-disable-next-line no-param-reassign
       state.userDatas[findIndexOfObject] = action.payload;
     },
   },

@@ -17,8 +17,10 @@ function UserEdit() {
   const { userDatas } = useAppSelector((state: RootState) => state.userInfo);
   const dispatch = useAppDispatch();
 
-  const { id } = useParams();
-  const targetedUser = FindUserById(parseFloat(id!), userDatas);
+  const { userID } = useParams();
+
+  const id:number = parseFloat(userID!);
+  const targetedUser = FindUserById(id, userDatas);
 
   // states--------------------------------------
   const [loading, setLoading] = useState(false);
